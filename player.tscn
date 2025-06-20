@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlfnkl83mrw01"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2s5t"]
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_g2s5t")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]

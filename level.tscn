@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5a705qovqk1n"]
+
+[ext_resource type="PackedScene" uid="uid://dlfnkl83mrw01" path="res://player.tscn" id="1_gc8pf"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gk7nq"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_pppnt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sv2ql"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwi8g"]
+size = Vector3(10, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pn554"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qi24y"]
+size = Vector3(10, 2, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_183ax"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plkod"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_gc8pf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109583, 4.01484, 1.24032)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_gk7nq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_pppnt")
+
+[node name="Walls" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls"]
+transform = Transform3D(10, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_sv2ql")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls"]
+shape = SubResource("BoxShape3D_rwi8g")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 0, 1.9964)
+mesh = SubResource("BoxMesh_pn554")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9964)
+shape = SubResource("BoxShape3D_qi24y")
+
+[node name="Target" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target"]
+mesh = SubResource("BoxMesh_183ax")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target"]
+shape = SubResource("BoxShape3D_plkod")

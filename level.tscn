@@ -62,3 +62,5 @@ mesh = SubResource("BoxMesh_183ax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Target"]
 shape = SubResource("BoxShape3D_plkod")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

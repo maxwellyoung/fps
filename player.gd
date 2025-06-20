@@ -3,7 +3,6 @@ extends CharacterBody3D
 @export var speed := 5.0
 @export var mouse_sens := Vector2(0.003, 0.003)
 
-var velocity := Vector3.ZERO
 var yaw := 0.0
 var pitch := 0.0
 

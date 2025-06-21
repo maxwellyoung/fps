@@ -1,18 +1,40 @@
 extends CharacterBody3D
 
+signal health_changed(new_health)
+
+@export var max_health := 100.0
+var current_health: float
+
 @export var speed := 5.0
+@export var sprint_speed := 8.0
 @export var mouse_sens := Vector2(0.003, 0.003)
 
 var yaw := 0.0
 var pitch := 0.0
 
 @export var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var jump_velocity := 4.5
+
+@onready var muzzle_flash: GPUParticles3D = $SpringArm3D/Camera3D/MuzzleFlash
+@onready var gunshot_sound: AudioStreamPlayer3D = $SpringArm3D/Camera3D/GunshotSound
+@onready var raycast: RayCast3D = $SpringArm3D/Camera3D/RayCast3D
+
+@export var impact_effect: PackedScene
 
 @export var range := 100.0
 @export var damage := 25
 
 func _ready():
+	current_health = max_health
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func take_damage(amount):
+	current_health = max(0, current_health - amount)
+	health_changed.emit(current_health)
+	print("Player took damage, health is now: ", current_health)
+	if current_health <= 0:
+		print("Player has died!")
+		# We can add game over logic here later.
 
 func _unhandled_input(ev):
 	if ev is InputEventMouseMotion:
@@ -26,6 +48,10 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	# Handle Jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump_velocity
+
 	# Get input direction.
 	var dir := Vector3.ZERO
 	dir.z = Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
@@ -36,10 +62,17 @@ func _physics_process(delta):
 	var horizontal_velocity = velocity
 	horizontal_velocity.y = 0
 	
-	var target = dir * speed
+	var target_speed = speed
+	if Input.is_action_pressed("sprint"):
+		target_speed = sprint_speed
 	
-	# Smooth acceleration.
-	horizontal_velocity = horizontal_velocity.lerp(target, delta * 10.0)
+	var target = dir * target_speed
+	
+	# Smooth acceleration (floaty controls)
+	# horizontal_velocity = horizontal_velocity.lerp(target, delta * 10.0)
+	
+	# Snappy controls
+	horizontal_velocity = target
 	
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
@@ -48,9 +81,23 @@ func _physics_process(delta):
 
 func _input(ev):
 	if ev.is_action_pressed("fire"):
-		$RayCast3D.target_position = Vector3(0, 0, -range)
-		$RayCast3D.force_raycast_update()
-		if $RayCast3D.is_colliding():
-			var obj = $RayCast3D.get_collider()
+		if muzzle_flash:
+			muzzle_flash.restart()
+		if gunshot_sound:
+			gunshot_sound.play()
+		
+		raycast.target_position = Vector3(0, 0, -range)
+		raycast.force_raycast_update()
+		if raycast.is_colliding():
+			var impact_point = raycast.get_collision_point()
+			var impact_normal = raycast.get_collision_normal()
+			
+			if impact_effect:
+				var impact_instance = impact_effect.instantiate()
+				get_tree().get_root().add_child(impact_instance)
+				impact_instance.global_position = impact_point
+				impact_instance.look_at(impact_point + impact_normal, Vector3.UP)
+
+			var obj = raycast.get_collider()
 			if obj.has_method("hit"):
 				obj.hit(damage) 

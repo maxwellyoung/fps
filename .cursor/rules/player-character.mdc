@@ -1,0 +1,13 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Player Character
+
+The player character is implemented in [player.gd](mdc:player.gd) and its corresponding scene is [player.tscn](mdc:player.tscn).
+
+The script [player.gd](mdc:player.gd) handles:
+*   Player movement (FPS-style controls).
+*   Mouse look (camera control).
+*   Shooting mechanics using a RayCast.

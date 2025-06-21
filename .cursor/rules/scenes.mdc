@@ -1,0 +1,12 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Scenes
+
+This project uses scenes to structure the game.
+
+*   [level.tscn](mdc:level.tscn) is the main level scene.
+*   [player.tscn](mdc:player.tscn) is the player character's scene.
+*   [HUD.tscn](mdc:HUD.tscn) likely implements the Heads-Up Display for the player.

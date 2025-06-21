@@ -1,0 +1,12 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Godot Project Structure
+
+This is a Godot Engine project.
+
+*   The main project definition is in [project.godot](mdc:project.godot).
+*   Game scenes, which compose levels and objects, are stored in `.tscn` files like [level.tscn](mdc:level.tscn) and [player.tscn](mdc:player.tscn).
+*   Game logic is written in GDScript (`.gd` files), such as [player.gd](mdc:player.gd).

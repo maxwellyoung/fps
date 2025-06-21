@@ -24,7 +24,7 @@ size = Vector3(10, 2, 0.3)
 [node name="Level" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_gc8pf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109583, 4.01484, 1.24032)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109583, 4.01484, 3.14801)
 script = ExtResource("2_781ve")
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -64,3 +64,4 @@ mesh = SubResource("BoxMesh_183ax")
 shape = SubResource("BoxShape3D_plkod")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.863836, 0.503774, 0, -0.503774, 0.863836, 0, 3.97618, 3.94101)

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj4b2ipkrj4ft"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yvejv"]
+size = Vector3(0.1, 0.1, 0.5)
+
+[node name="ViewModel" type="Node3D"]
+transform = Transform3D(1, -0.000626045, -0.000371078, 0.000626765, 0.999998, 0.0019265, 0.00036986, -0.00192674, 0.999998, 0, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -7.07757e-06, -2.30383e-05, 7.43091e-05, -0.000164613, 0.31, -9.83794e-06, -0.72, -7.08742e-05, 0.000157303, -0.110819, 0.21529)
+layers = 513
+mesh = SubResource("BoxMesh_yvejv")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 513
+mesh = SubResource("BoxMesh_yvejv")

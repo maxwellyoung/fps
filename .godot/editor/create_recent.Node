@@ -1,8 +1,11 @@
+ProgressBar
+MeshInstance3D
+AudioStreamPlayer3D
+GPUParticles3D
 ColorRect
 CanvasLayer
 DirectionalLight3D
 CollisionShape3D
-MeshInstance3D
 RigidBody3D
 StaticBody3D
 CharacterBody3D

@@ -1,4 +1,13 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1750395620
+::res://::1750469190
+gunshot.mp3::AudioStreamMP3::2549949559491002512::1750466636::1750466636::1::::<><>::
+HUD.gd::GDScript::-1::1750468741::0::1::::<>CanvasLayer<>::
+HUD.tscn::PackedScene::6215939659069973590::1750469180::0::1::::<><>::
 icon.svg::CompressedTexture2D::6207506658216277705::1750395355::1750395621::1::::<><>::
-player.gd::GDScript::-1::1750395504::0::1::::<>CharacterBody3D<>::
+ImpactEffect.tscn::PackedScene::2544456928994975380::1750469105::0::1::::<><>::
+level.tscn::PackedScene::4494075182532397113::1750469105::0::1::::<><>::uid://dlfnkl83mrw01::::res://player.tscn<>res://player.gd
+MuzzleFlash.tscn::PackedScene::8084434310985476747::1750469105::0::1::::<><>::
+player.gd::GDScript::-1::1750468991::0::1::::<>CharacterBody3D<>::
+player.tscn::PackedScene::7942469028737290956::1750469120::0::1::::<><>::uid://dngfpmpq10wtf::::res://MuzzleFlash.tscn<>uid://cutbvao3x1gpa::::res://HUD.tscn<>res://player.gd<>uid://bcis3l7pqru4c::::res://ImpactEffect.tscn<>uid://bclhkc8g5u1e7::::res://gunshot.mp3<>uid://bj4b2ipkrj4ft::::res://ViewModel.tscn
+target.gd::GDScript::-1::1750438053::0::1::::<>RigidBody3D<>::
+ViewModel.tscn::PackedScene::3078096608567651465::1750469105::0::1::::<><>::

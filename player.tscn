@@ -1,18 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlfnkl83mrw01"]
+[gd_scene load_steps=9 format=3 uid="uid://dlfnkl83mrw01"]
 
+[ext_resource type="PackedScene" uid="uid://dngfpmpq10wtf" path="res://MuzzleFlash.tscn" id="1_nvcng"]
 [ext_resource type="PackedScene" uid="uid://cutbvao3x1gpa" path="res://HUD.tscn" id="1_q587f"]
+[ext_resource type="Script" path="res://player.gd" id="1_tpdhp"]
+[ext_resource type="PackedScene" uid="uid://bcis3l7pqru4c" path="res://ImpactEffect.tscn" id="2_qtjvu"]
+[ext_resource type="AudioStream" uid="uid://bclhkc8g5u1e7" path="res://gunshot.mp3" id="4_xcay1"]
+[ext_resource type="PackedScene" uid="uid://bj4b2ipkrj4ft" path="res://ViewModel.tscn" id="5_7mnpe"]
+[ext_resource type="Script" path="res://HUD.gd" id="7_ptrr7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2s5t"]
 
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_tpdhp")
+impact_effect = ExtResource("2_qtjvu")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
+[node name="MuzzleFlash" parent="SpringArm3D/Camera3D" instance=ExtResource("1_nvcng")]
+
+[node name="GunshotSound" type="AudioStreamPlayer3D" parent="SpringArm3D/Camera3D"]
+stream = ExtResource("4_xcay1")
+
+[node name="RayCast3D" type="RayCast3D" parent="SpringArm3D/Camera3D"]
+
+[node name="ViewModel" parent="SpringArm3D/Camera3D" instance=ExtResource("5_7mnpe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.134572, -0.5)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g2s5t")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-
 [node name="HUD" parent="." instance=ExtResource("1_q587f")]
+script = ExtResource("7_ptrr7")
+
+[connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]

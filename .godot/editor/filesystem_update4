@@ -1,3 +1,5 @@
 res://HUD.tscn
 res://HUD.gd
 res://player.tscn
+res://level.tscn
+res://DamageZone.gd

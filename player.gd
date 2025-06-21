@@ -1,9 +1,13 @@
 extends CharacterBody3D
 
 signal health_changed(new_health)
+signal ammo_changed(new_ammo)
 
 @export var max_health := 100.0
 var current_health: float
+
+@export var max_ammo := 12
+var current_ammo: int
 
 @export var speed := 5.0
 @export var sprint_speed := 8.0
@@ -26,6 +30,7 @@ var pitch := 0.0
 
 func _ready():
 	current_health = max_health
+	current_ammo = max_ammo
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func take_damage(amount):
@@ -44,6 +49,12 @@ func _unhandled_input(ev):
 		$SpringArm3D.rotation.x = pitch
 
 func _physics_process(delta):
+	# Handle player actions
+	if Input.is_action_just_pressed("fire"):
+		shoot()
+	if Input.is_action_just_pressed("reload"):
+		reload_weapon()
+
 	# Add gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -79,25 +90,36 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _input(ev):
-	if ev.is_action_pressed("fire"):
-		if muzzle_flash:
-			muzzle_flash.restart()
-		if gunshot_sound:
-			gunshot_sound.play()
-		
-		raycast.target_position = Vector3(0, 0, -range)
-		raycast.force_raycast_update()
-		if raycast.is_colliding():
-			var impact_point = raycast.get_collision_point()
-			var impact_normal = raycast.get_collision_normal()
-			
-			if impact_effect:
-				var impact_instance = impact_effect.instantiate()
-				get_tree().get_root().add_child(impact_instance)
-				impact_instance.global_position = impact_point
-				impact_instance.look_at(impact_point + impact_normal, Vector3.UP)
+func shoot():
+	if current_ammo <= 0:
+		return # Can't shoot with no ammo.
 
-			var obj = raycast.get_collider()
-			if obj.has_method("hit"):
-				obj.hit(damage) 
+	current_ammo -= 1
+	ammo_changed.emit(current_ammo)
+	
+	if muzzle_flash:
+		muzzle_flash.restart()
+	if gunshot_sound:
+		gunshot_sound.play()
+	
+	raycast.target_position = Vector3(0, 0, -range)
+	raycast.force_raycast_update()
+	if raycast.is_colliding():
+		var impact_point = raycast.get_collision_point()
+		var impact_normal = raycast.get_collision_normal()
+		
+		if impact_effect:
+			var impact_instance = impact_effect.instantiate()
+			get_tree().get_root().add_child(impact_instance)
+			impact_instance.global_position = impact_point
+			impact_instance.look_at(impact_point + impact_normal, Vector3.UP)
+
+		var obj = raycast.get_collider()
+		if obj.has_method("hit"):
+			obj.hit(damage)
+
+func reload_weapon():
+	current_ammo = max_ammo
+	ammo_changed.emit(current_ammo)
+
+

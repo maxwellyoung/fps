@@ -8,6 +8,9 @@ alwaysApply: false
 The player character is implemented in [player.gd](mdc:player.gd) and its corresponding scene is [player.tscn](mdc:player.tscn).
 
 The script [player.gd](mdc:player.gd) handles:
-*   Player movement (FPS-style controls).
+*   Player movement (FPS-style controls with walking and sprinting).
+*   Jumping and gravity.
 *   Mouse look (camera control).
-*   Shooting mechanics using a RayCast.
+*   Health and damage system via `take_damage(amount)`. It emits a `health_changed` signal.
+*   Ammo system. It emits an `ammo_changed` signal.
+*   Shooting mechanics using a RayCast, with muzzle flash, gunshot sounds, and impact effects.

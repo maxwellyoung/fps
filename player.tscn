@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlfnkl83mrw01"]
+[gd_scene load_steps=10 format=3 uid="uid://dlfnkl83mrw01"]
 
 [ext_resource type="PackedScene" uid="uid://dngfpmpq10wtf" path="res://MuzzleFlash.tscn" id="1_nvcng"]
 [ext_resource type="PackedScene" uid="uid://cutbvao3x1gpa" path="res://HUD.tscn" id="1_q587f"]
 [ext_resource type="Script" path="res://player.gd" id="1_tpdhp"]
+[ext_resource type="PackedScene" uid="uid://7uxsdm6om53d" path="res://GameOverUI.tscn" id="2_qm26a"]
 [ext_resource type="PackedScene" uid="uid://bcis3l7pqru4c" path="res://ImpactEffect.tscn" id="2_qtjvu"]
 [ext_resource type="AudioStream" uid="uid://bclhkc8g5u1e7" path="res://gunshot.mp3" id="4_xcay1"]
 [ext_resource type="PackedScene" uid="uid://bj4b2ipkrj4ft" path="res://ViewModel.tscn" id="5_7mnpe"]
@@ -12,6 +13,7 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_tpdhp")
+game_over_ui = ExtResource("2_qm26a")
 impact_effect = ExtResource("2_qtjvu")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]

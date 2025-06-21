@@ -23,6 +23,7 @@ var pitch := 0.0
 @onready var gunshot_sound: AudioStreamPlayer3D = $SpringArm3D/Camera3D/GunshotSound
 @onready var raycast: RayCast3D = $SpringArm3D/Camera3D/RayCast3D
 
+@export var game_over_ui: PackedScene
 @export var impact_effect: PackedScene
 
 @export var range := 100.0
@@ -36,10 +37,15 @@ func _ready():
 func take_damage(amount):
 	current_health = max(0, current_health - amount)
 	health_changed.emit(current_health)
-	print("Player took damage, health is now: ", current_health)
 	if current_health <= 0:
-		print("Player has died!")
-		# We can add game over logic here later.
+		die()
+
+func die():
+	print("Player has died!")
+	if game_over_ui:
+		var ui_instance = game_over_ui.instantiate()
+		add_child(ui_instance)
+		ui_instance.show_game_over()
 
 func _unhandled_input(ev):
 	if ev is InputEventMouseMotion:

@@ -4,3 +4,5 @@ res://player.tscn
 res://level.tscn
 res://DamageZone.gd
 res://player.gd
+res://GameOverUI.gd
+res://GameOverUI.tscn
